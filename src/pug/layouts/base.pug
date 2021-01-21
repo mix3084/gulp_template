@@ -23,7 +23,7 @@ block vars
 			description: description,
 			keywords: [],
 			ogTitle: title,
-			viewport: 'width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1',
+			viewport: 'width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0',
 			XUACompatible: 'IE=edge'
 		}
 	-
@@ -54,22 +54,34 @@ html(class=html.classList)&attributes(html.attrs)
 			if link.icon16x16
 				link(rel="icon" href=link.icon16x16 sizes="16x16")
 			link(rel="stylesheet" href="/css/app.css?v=" + Date.now())
+			style.
+				.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}
 			script.
 				function canUseWebP(){var e=document.createElement("canvas");return!(!e.getContext||!e.getContext("2d"))&&0==e.toDataURL("image/webp").indexOf("data:image/webp")}var root=document.getElementsByTagName("html")[0];canUseWebP()?root.classList.add("ws"):root.classList.add("wn");
 		block head-end
 	body(class=body.classList)&attributes(body.attrs)
+		.ie-panel
+			a(href='http://windows.microsoft.com/en-US/internet-explorer/')
+				img(src='/img/warning_bar_0000_us.jpg' height='42' width='820' alt='Вы используете устаревший браузер. Для более быстрого и безопасного просмотра веб-страниц обновите приложение бесплатно сегодня.')
+		
 		block body-start
 
 		block header
 			include header
-		block content
+
+		main	
+			block content
+
 		block footer 
 			include footer
+
 		block popup 
 			include modals
 
 		block scripts
-			script(src="http://code.jquery.com/jquery-3.3.1.min.js")
+			script(src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+			script.
+				window.jQuery || document.write('<script src="/js/jquery.js"><\/script>')
 			script(src="/js/app.js?v=" + Date.now())
 				
 		block body-end

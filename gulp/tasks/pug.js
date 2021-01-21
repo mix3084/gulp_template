@@ -13,7 +13,13 @@ module.exports = (gulp, plugins, browserSync) => {
 			// -------------------------------------------- Start Task
 			gulp
 				.src(path.src.html)
-				.pipe(plugins.changed("dist", { extension: ".html" }))
+				// .pipe(plugins.changed("dist", { extension: ".html" }))
+				.pipe(
+					plugins.newer({
+						dest: "./dist/",
+						extra: "./src/pug/{layouts,mixin}/*.pug",
+					})
+				)
 				.pipe(plugins.plumber({ errorHandler }))
 				.pipe(
 					plugins.pug({
@@ -22,26 +28,20 @@ module.exports = (gulp, plugins, browserSync) => {
 				)
 				.pipe(
 					plugins.replace(/<svg.*?(>)/g, (match) => {
-						let viewport = match
-							.match(/viewBox=\"([^']*?)\"/g)
-							.toString();
+						let viewport = match.match(/viewBox=\"([^']*?)\"/g)
+											.toString();
 
 						if (viewport !== 'viewBox=""') return match;
 
-						let name = match
-							.match(/\bicon-[a-zA-Z]*\b/g)
-							.toString()
-							.replace("icon-", "");
+						let name = match.match(/\bicon-[a-zA-Z]*\b/g)
+										.toString()
+										.replace("icon-", "");
 
-						viewport = fs
-							.readFileSync(`src/icons/${name}.svg`, "utf8")
-							.match(/viewBox=\"([^']*?)\"/g)
-							.toString();
+						viewport = fs.readFileSync(`src/icons/${name}.svg`, "utf8")
+									 .match(/viewBox=\"([^']*?)\"/g)
+									 .toString();
 
-						let changed = match.replace(
-							/viewBox=\"([^']*?)\"/g,
-							viewport
-						);
+						let changed = match.replace(/viewBox=\"([^']*?)\"/g, viewport);
 
 						return changed;
 					})
@@ -58,8 +58,8 @@ module.exports = (gulp, plugins, browserSync) => {
 				)
 				.pipe(
 					plugins.replace(/<img.*?src="(.*?)".*?(>)/g, (match) => {
-						var attrs = match.replace(/(<img |<img|>|\/>)/g, "");
-						var src,
+						let attrs = match.replace(/(<img |<img|>|\/>)/g, ""),
+							src,
 							webpSrc,
 							subAttr = [],
 							template;
@@ -70,10 +70,9 @@ module.exports = (gulp, plugins, browserSync) => {
 							)
 							.forEach((element) => {
 								if (element.indexOf("src") !== -1) {
-									src = element
-										.match(/("|')(.*?)("|').*?/g)
-										.toString()
-										.replace("/img/", "/app/img/");
+									src = element.match(/("|')(.*?)("|').*?/g)
+												 .toString()
+												 .replace("/img/", "/app/img/");
 									webpSrc = src.replace(
 										/(gif|jpg|jpeg|tiff|png)/g,
 										"webp"
@@ -84,9 +83,9 @@ module.exports = (gulp, plugins, browserSync) => {
 							});
 
 						template = `<picture>
-		                            <source type="image/webp" srcset=${webpSrc}>
-		                            <img src=${src} ${subAttr.join(" ")} />
-		                        </picture>`;
+										<source type="image/webp" srcset=${webpSrc}>
+										<img src=${src} ${subAttr.join(" ")} />
+									</picture>`;
 
 						if (!webpSrc.includes("svg")) return template;
 						else return match;
@@ -109,7 +108,8 @@ module.exports = (gulp, plugins, browserSync) => {
 				.pipe(
 					plugins.htmlPrettify({ indent_char: " ", indent_size: 4 })
 				)
-				.pipe(gulp.dest(path.build.html));
+				.pipe(gulp.dest(path.build.html))
+				.on("end", browserSync.reload);
 		// ---------------------------------------------- End Task
 		return stream;
 	};

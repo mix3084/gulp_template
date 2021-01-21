@@ -1,0 +1,26 @@
+@mixin scroll-custom($color: $secondary, $width: 4px) {
+	scrollbar-color: rgba($secondary, .5) #fff;
+	scrollbar-width: thin;
+  
+	&::-webkit-scrollbar {
+	  width: $width; /* ширина для вертикального скролла */
+	  height: 5px;
+	  background-color: #fff;
+	}
+  
+	&::-webkit-scrollbar-thumb {
+	  height: 5px;
+	  border: none;
+	  border-radius: 0;
+	  background-color: rgba($color, .5);
+	}
+  
+	&::-webkit-scrollbar-track {
+	  height: 15px;
+	  background: #fff;
+	  border: none;
+	  border-radius: 0;
+	}
+}
+  
+  

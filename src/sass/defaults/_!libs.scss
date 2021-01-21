@@ -1,13 +1,26 @@
 @import "../../node_modules/sass-mediaqueries/_media-queries";
-@import "../../node_modules/magnific-popup/src/css/main";
+// @import "../../node_modules/magnific-popup/src/css/main";
 
 // Required
 @import "./node_modules/bootstrap/scss/functions";
 @import "./node_modules/bootstrap/scss/variables";
 @import "./node_modules/bootstrap/scss/mixins";
 
-// Удаление из карты
+// Изменение карт bootstrap
+$grid-breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1400px
+);
 
+$custom-file-text: (
+  en: "Browse",
+  es: "Elegir",
+  ru: "Выберите файл"
+);
 
 // Optional
 @import "./node_modules/bootstrap/scss/root";
@@ -44,3 +57,10 @@
 @import "./node_modules/bootstrap/scss/spinners";
 @import "./node_modules/bootstrap/scss/utilities";
 @import "./node_modules/bootstrap/scss/print";
+
+@import "./node_modules/swiper/swiper";
+
+@import "./node_modules/@fortawesome/fontawesome-free/scss/regular";
+@import "./node_modules/@fortawesome/fontawesome-free/scss/solid";
+@import "./node_modules/@fortawesome/fontawesome-free/scss/brands";
+@import "./node_modules/@fortawesome/fontawesome-free/scss/fontawesome";

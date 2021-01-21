@@ -1,5 +1,4 @@
 import "magnific-popup";
-import { config } from "../config";
 
 var modals = {
 

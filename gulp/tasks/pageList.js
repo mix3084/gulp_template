@@ -2,12 +2,11 @@
 // Gulp Task: pageList
 // =========================================================
 
-let folder = __dirname.replace(/\\gulp\\tasks/g,'');
-let projectName = folder.replace(/.*\\([^\\]+)\\/gm, '').replace('_', '-');
-
-let path = require('../settings/path.json'),
-	glob = require('glob'),
-	fs = require('fs');
+let folder		= __dirname.replace(/\\gulp\\tasks/g,''),
+	projectName = folder.replace(/.*\\([^\\]+)\\/gm, '').replace('_', '-'),
+	path 		= require('../settings/path.json'),
+	glob 		= require('glob'),
+	fs 			= require('fs');
 
 module.exports = (gulp, plugins) => {
     return async () => {
@@ -19,16 +18,14 @@ module.exports = (gulp, plugins) => {
 
         		files.map(file => {
 
-	                var fileHref = file.replace('dist', '')
+					let fileHref 	= file.replace('dist', ''),
+						content 	= fs.readFileSync(file, 'utf8'),
+						fileName 	= content.match(/<title>(.*?)<\/title>/g)
+											 .toString()
+											 .replace(/<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g, '');
 
-	                var content = fs.readFileSync(file, 'utf8');
-
-	                var fileName = content.match(/<title>(.*?)<\/title>/g).toString().replace(/<\/?\w+((\s+\w+(\s*=\s*(?:".*?"|'.*?'|[^'">\s]+))?)+\s*|\s*)\/?>/g, '');
-
-
-	                if(fileHref.indexOf('index.html') === -1)
+	                if (fileHref.indexOf('index.html') === -1)
 	                    ol += `<li><a href="${fileHref}" target="_blank">${fileName}</a></li>`
-
 	            })	        		
 	        	
 	            ol += "</ol>";
@@ -39,6 +36,5 @@ module.exports = (gulp, plugins) => {
 				return projectName;
 			}))
 	        .pipe(gulp.dest(path.build.html))
-
     };
 };

@@ -1,11 +1,10 @@
 // =========================================================
 // Gulp Task: Deploy
 // =========================================================
-let folder = __dirname.replace(/\\gulp\\tasks/g,'');
-let projectName = folder.replace(/.*\\([^\\]+)\\/gm, '').replace('_', '-');
-
-let ftp = require('vinyl-ftp');
-let ftpData = require('../settings/ftp.json');
+let folder 		= __dirname.replace(/\\gulp\\tasks/g,''),
+	projectName = folder.replace(/.*\\([^\\]+)\\/gm, '').replace('_', '-'),
+	ftp 		= require('vinyl-ftp'),
+	ftpData 	= require('../settings/ftp.json');
 
 module.exports = function(gulp, plugins) {
 
@@ -13,16 +12,16 @@ module.exports = function(gulp, plugins) {
 
     	console.log(`name is ${projectName}`)
 
-	    var conn = ftp.create( {
+	    let conn = ftp.create( {
 	        host:     ftpData.host,
 	        user:     ftpData.user,
 	        password: ftpData.pass,
 	        parallel: 10
 	    });
 
-	    var supPath = `/www/${projectName}.${ftpData.domain}/`;
+	    let supPath = `/www/${projectName}.${ftpData.domain}/`;
 
-	    var globs = [
+	    let globs = [
 	        'dist/**/*.*'
 	    ];
 
@@ -35,6 +34,5 @@ module.exports = function(gulp, plugins) {
 	        
 	        return console.log(e);
 	    });
-
     };
 };

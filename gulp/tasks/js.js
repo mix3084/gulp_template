@@ -16,9 +16,15 @@ module.exports = (gulp, plugins, browserSync) => {
 				.pipe(plugins.plumber({ errorHandler }))
 				.pipe(
 					webpackStream({
-						mode: 'development',
+						// mode: 'development',
+						mode: 'production',
+						
+						entry: {
+							jQuery:			"./node_modules/jquery/src/jquery.js",
+							app: 			"./src/js/app.js",
+						},
 						output: {
-							filename: "app.js",
+							filename: "[name].js",
 						},
 						module: {
 							rules: [
