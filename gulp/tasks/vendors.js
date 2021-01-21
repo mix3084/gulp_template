@@ -12,8 +12,11 @@ module.exports = (gulp, plugins) => {
 						  .pipe(gulp.dest(path.build.fonts)),
 			attach 	= gulp.src(path.src.attach)
 						  .pipe(plugins.newer(path.build.attach))
-						  .pipe(gulp.dest(path.build.attach));
+						  .pipe(gulp.dest(path.build.attach)),
+			fa		= gulp.src(path.src.fa)
+						  .pipe(plugins.newer(path.build.fa))
+						  .pipe(gulp.dest(path.build.fa));
 
-		return merge(fonts, attach);
+		return merge(fonts, attach, fa);
 	};
 };
