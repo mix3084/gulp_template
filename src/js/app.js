@@ -1,3 +1,4 @@
+import'./modules/plugins';
 import { App } from './init';
 
 var app = new App();
