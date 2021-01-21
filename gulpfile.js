@@ -4,6 +4,9 @@ var gulp 		= require("gulp"),
 	path 		= require("./gulp/settings/path.json"),
 	browserSync = require("browser-sync").create();
 
+let folder 		= __dirname.replace(/\\gulp\\tasks/g,''),
+	projectName = folder.replace(/.*\\([^\\]+)\\/gm, '').replace('_', '-');
+
 global.emittyChangedFile = {
 	path: "",
 	stats: null,
@@ -31,6 +34,7 @@ gulp.task("browserSync", (cb) => {
 		{
 			server: "dist",
 			notify: false,
+			tunnel: projectName
 		},
 		cb
 	);

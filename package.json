@@ -13,8 +13,9 @@
     "@babel/preset-env": "^7.8.4",
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.13",
     "del": "^5.1.0",
+    "emitty": "^1.4.0",
     "fs": "0.0.1-security",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
@@ -23,6 +24,7 @@
     "gulp-cheerio": "^1.0.0",
     "gulp-clean-css": "^4.2.0",
     "gulp-html-prettify": "0.0.1",
+    "gulp-if": "^3.0.0",
     "gulp-inject-string": "^1.1.2",
     "gulp-load-plugins": "^2.0.2",
     "gulp-newer": "^1.4.0",
@@ -44,9 +46,7 @@
     "merge-stream": "^2.0.0",
     "vinyl-ftp": "^0.6.1",
     "webpack": "^4.41.5",
-    "webpack-stream": "^5.2.1",
-    "emitty": "^1.4.0",
-    "gulp-if": "^3.0.0"
+    "webpack-stream": "^5.2.1"
   },
   "dependencies": {
     "sass-mediaqueries": "^1.6.1",

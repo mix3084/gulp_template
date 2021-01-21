@@ -7,6 +7,9 @@ let folder      = __dirname.replace(/\\gulp\\tasks/g,''),
 
 module.exports = function(gulp, plugins) {
 	return () => {
-		return gulp.src(__filename).pipe(plugins.open({uri: `http://${projectName}.${ftpData.domain}/`}));
+		return gulp.src(__filename)
+				   .pipe(plugins.open({
+					   uri: `http://${projectName}.${ftpData.domain}/`
+					}));
 	};
 };
