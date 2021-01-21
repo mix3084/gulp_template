@@ -1,16 +1,14 @@
-// import { defaults } from "./modules/defaults";
+// import { config } from "./config";
 // import { modals } from "./modules/modals";
 import { forms } from "./modules/forms";
-import { config } from "./config";
+import { toSwiper } from "./modules/to-swiper";
 
 var App = () => {};
 
 App.prototype.init = () => {
 
-	// defaults.init();
-	// modals.init();
 	forms.init();
-	
+	toSwiper.init();
 	
 };
 
